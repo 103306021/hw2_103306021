@@ -56,7 +56,7 @@ class ViewController: UIViewController {
 
     // MARK: - Input
 
-    @IBAction func numButton(_ sender: AnyObject) {
+    @IBAction func numButton(_ sender: UIButton) {
         // Get the digit from the button.
         // There are 2 ways to get the digit set on the button.
         
@@ -108,7 +108,7 @@ class ViewController: UIViewController {
         self.displayLabel.text = currentText + "."
     }
 
-    @IBAction func operatorChangeSign(_ sender: AnyObject) {
+    @IBAction func operatorChangeSign(_ sender: UIButton) {
         let currentText = self.displayLabel.text ?? "0"
         // if the cur num has "-", let the num not contain "-".
         // if the cur num don't contain "-", let the num add "-".
@@ -119,7 +119,7 @@ class ViewController: UIViewController {
         }
     }
 
-    @IBAction func operatorPercentage(_ sender: AnyObject) {
+    @IBAction func operatorPercentage(_ sender: UIButton) {
         // Add current number into the core as a step
         let currentNumber = Double(self.displayLabel.text ?? "0")!
         try! self.core.addStep(currentNumber/100)
@@ -127,6 +127,14 @@ class ViewController: UIViewController {
         let result = self.core.calculate()!
         self.displayLabel.text = result.displayString
         // Reset the core
+        self.core = Core<Double>()
+    }
+    
+    @IBAction func operatorClear(_ sender: UIButton) {
+        // Clear (Reset)
+        // 1. Clean the display label
+        self.displayLabel.text = "0"
+        // 2. Reset the core
         self.core = Core<Double>()
     }
    
@@ -153,16 +161,7 @@ class ViewController: UIViewController {
         }
     }
 
-    @IBAction func operatorClear(_ sender: AnyObject) {
-        // Clear (Reset)
-        // 1. Clean the display label
-        self.displayLabel.text = "0"
-        // 2. Reset the core
-        self.core = Core<Double>()
-    }
-    
 
-    
     @IBAction func calculateButtonClicked(_ sender: UIButton) {
         // Add current number into the core as a step
         let currentNumber = Double(self.displayLabel.text ?? "0")!
